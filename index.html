@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поштова форма</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            font-style: italic;
+            text-align: center;
+            color: #333;
+        }
+        table {
+            border: 2px solid #0000CD;
+            border-spacing: 1px;
+            background-color: #FFFFE0;
+            margin: auto;
+        }
+        td {
+            padding: 8px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"], input[type="reset"] {
+            padding: 8px 16px;
+            margin: 4px;
+            border: none;
+            background-color: #0000CD;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover, input[type="reset"]:hover {
+            background-color: #3333CD;
+        }
+        .center {
+            text-align: center;
+        }
+        .form-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Поштова форма</h1>
+        <form name="mailer" method="post" action="" enctype="text/plain" onsubmit="return checkIt()">
+            <table>
+                <tr>
+                    <td><label for="name"><font size="2" color="#0000CD">Ім'я:</font></label></td>
+                    <td><input type="text" id="name" name="Name" size="24" onchange="msg(this.form)"></td>
+                </tr>
+                <tr>
+                    <td><label for="subject"><font size="2" color="#0000CD">Тема:</font></label></td>
+                    <td><input type="text" id="subject" name="Subject" size="24" onchange="msg(this.form)"></td>
+                </tr>
+                <tr>
+                    <td><label for="message"><font size="2" color="#0000CD">Повідомлення:</font></label></td>
+                    <td><textarea id="message" name="Message" cols="40" rows="6" onchange="msg(this.form)"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="center">
+                        <input type="submit" value="Відправити" onclick="return checkIt()">
+                        <input type="reset" value="Очистити">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script>
+        function checkIt() { 
+            if (document.forms.mailer.Name.value !== "") { 
+            } else {
+                alert("\nОбласть \"Ім'я\" у формі. \nБудь ласка, введіть своє ім'я.");
+                document.forms.mailer.Name.focus(); 
+                return false;
+            }
+            if (document.forms.mailer.Subject.value !== "") { 
+            } else {
+                alert("\nОбласть \"Тема\" у формі. \nБудь ласка, введіть тему.");
+                document.forms.mailer.Subject.focus(); 
+                return false;
+            }
+            if (document.forms.mailer.Message.value !== "") { 
+                msg();
+                return true; 
+            } else {
+                alert("\nОбласть \"Повідомлення\" у формі. \nБудь ласка, напишіть повідомлення.");
+                document.forms.mailer.Message.focus(); 
+                return false;
+            }
+        }
+
+        function msg() { 
+            document.mailer.action = "mailto:astra1990@meta.ua?Subject=" + encodeURIComponent(document.mailer.Subject.value) + "&Body=" + encodeURIComponent(document.mailer.Message.value);
+        }
+    </script>
+</body>
+</html>
